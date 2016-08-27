@@ -194,17 +194,21 @@ if opts.enableGpu, ext = 'cu' ; else ext='cpp' ; end
 lib_src{end+1} = fullfile(root,'matlab','src','bits',['data.' ext]) ;
 lib_src{end+1} = fullfile(root,'matlab','src','bits',['datamex.' ext]) ;
 lib_src{end+1} = fullfile(root,'matlab','src','bits',['nnconv.' ext]) ;
+lib_src{end+1} = fullfile(root,'matlab','src','bits',['nnconv3d.' ext]) ;
 lib_src{end+1} = fullfile(root,'matlab','src','bits',['nnfullyconnected.' ext]) ;
 lib_src{end+1} = fullfile(root,'matlab','src','bits',['nnsubsample.' ext]) ;
 lib_src{end+1} = fullfile(root,'matlab','src','bits',['nnpooling.' ext]) ;
+lib_src{end+1} = fullfile(root,'matlab','src','bits',['nnpooling3d.' ext]) ;
 lib_src{end+1} = fullfile(root,'matlab','src','bits',['nnnormalize.' ext]) ;
 lib_src{end+1} = fullfile(root,'matlab','src','bits',['nnbnorm.' ext]) ;
 lib_src{end+1} = fullfile(root,'matlab','src','bits',['nnbias.' ext]) ;
 lib_src{end+1} = fullfile(root,'matlab','src','bits',['nnbilinearsampler.' ext]) ;
 lib_src{end+1} = fullfile(root,'matlab','src','bits',['nnroipooling.' ext]) ;
 mex_src{end+1} = fullfile(root,'matlab','src',['vl_nnconv.' ext]) ;
+mex_src{end+1} = fullfile(root,'matlab','src',['vl_nnconv3d.' ext]) ;
 mex_src{end+1} = fullfile(root,'matlab','src',['vl_nnconvt.' ext]) ;
 mex_src{end+1} = fullfile(root,'matlab','src',['vl_nnpool.' ext]) ;
+mex_src{end+1} = fullfile(root,'matlab','src',['vl_nnpool3d.' ext]) ;
 mex_src{end+1} = fullfile(root,'matlab','src',['vl_nnnormalize.' ext]) ;
 mex_src{end+1} = fullfile(root,'matlab','src',['vl_nnbnorm.' ext]) ;
 mex_src{end+1} = fullfile(root,'matlab','src',['vl_nnbilinearsampler.' ext]) ;
@@ -224,9 +228,11 @@ lib_src{end+1} = fullfile(root,'matlab','src','bits','imread.cpp') ;
 % GPU-specific files
 if opts.enableGpu
   lib_src{end+1} = fullfile(root,'matlab','src','bits','impl','im2row_gpu.cu') ;
+  lib_src{end+1} = fullfile(root,'matlab','src','bits','impl','vol2row_gpu.cu') ;
   lib_src{end+1} = fullfile(root,'matlab','src','bits','impl','subsample_gpu.cu') ;
   lib_src{end+1} = fullfile(root,'matlab','src','bits','impl','copy_gpu.cu') ;
   lib_src{end+1} = fullfile(root,'matlab','src','bits','impl','pooling_gpu.cu') ;
+  lib_src{end+1} = fullfile(root,'matlab','src','bits','impl','pooling3d_gpu.cu') ;
   lib_src{end+1} = fullfile(root,'matlab','src','bits','impl','normalize_gpu.cu') ;
   lib_src{end+1} = fullfile(root,'matlab','src','bits','impl','bnorm_gpu.cu') ;
   lib_src{end+1} = fullfile(root,'matlab','src','bits','impl','bilinearsampler_gpu.cu') ;
@@ -237,6 +243,7 @@ end
 % cuDNN-specific files
 if opts.enableCudnn
   lib_src{end+1} = fullfile(root,'matlab','src','bits','impl','nnconv_cudnn.cu') ;
+  lib_src{end+1} = fullfile(root,'matlab','src','bits','impl','nnconv3d_cudnn.cu') ;
   lib_src{end+1} = fullfile(root,'matlab','src','bits','impl','nnbias_cudnn.cu') ;
   lib_src{end+1} = fullfile(root,'matlab','src','bits','impl','nnpooling_cudnn.cu') ;
   lib_src{end+1} = fullfile(root,'matlab','src','bits','impl','nnbilinearsampler_cudnn.cu') ;

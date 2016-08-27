@@ -34,7 +34,10 @@ the terms of the BSD license (see the COPYING file).
 namespace vl {
 
 #if ENABLE_CUDNN
-  namespace impl { template<vl::Type type> struct nnconv_cudnn ; }
+  namespace impl { 
+    template<vl::Type type> struct nnconv_cudnn ; 
+    template<vl::Type type> struct nnconv3d_cudnn ;
+  }
 #endif
 
   class CudaHelper {
@@ -82,6 +85,7 @@ namespace vl {
                               char const* description = NULL) ;
 
     template<vl::Type type> friend struct vl::impl::nnconv_cudnn ;
+    template<vl::Type type> friend struct vl::impl::nnconv3d_cudnn ;
 #endif
 
   protected:

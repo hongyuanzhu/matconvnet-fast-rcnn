@@ -106,12 +106,25 @@ for l = 1:numel(net.layers)
           block.upsample = net.layers{l}.upsample ;
           block.crop = net.layers{l}.crop ;
           block.numGroups = net.layers{l}.numGroups ;
+        case 'conv3d'
+          block = Conv3D() ;
+          block.size = sz;
+          block.pad = net.layers{l}.pad ;
+          block.stride = net.layers{l}.stride ;
       end
       block.hasBias = hasBias ;
       block.opts = net.layers{l}.opts ;
 
     case 'pool'
       block = Pooling() ;
+      block.method = net.layers{l}.method ;
+      block.poolSize = net.layers{l}.pool ;
+      block.pad = net.layers{l}.pad ;
+      block.stride = net.layers{l}.stride ;
+      block.opts = net.layers{l}.opts ;
+
+    case 'pool3d'
+      block = Pooling3D() ;
       block.method = net.layers{l}.method ;
       block.poolSize = net.layers{l}.pool ;
       block.pad = net.layers{l}.pad ;
