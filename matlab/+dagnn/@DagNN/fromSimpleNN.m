@@ -58,8 +58,17 @@ net = vl_simplenn_tidy(net) ;
 obj.meta = net.meta ;
 
 for l = 1:numel(net.layers)
-  inputs = {sprintf('x%d',l-1)} ;
-  outputs = {sprintf('x%d',l)} ;
+  if isfield(net.layers{l}, 'inputs')
+    inputs = net.layers{l}.inputs;
+  else
+    inputs = {sprintf('x%d',l-1)} ;
+  end
+
+  if isfield(net.layers{l}, 'outputs')
+    outputs = net.layers{l}.outputs;
+  else
+    outputs = {sprintf('x%d',l)} ;
+  end
 
   params = struct(...
         'name', {}, ...
@@ -118,6 +127,11 @@ for l = 1:numel(net.layers)
       block.stride = net.layers{l}.stride ;
       block.opts = net.layers{l}.opts ;
 
+    case 'roipooling'
+      block = RoiPooling();
+      block.poolSize = [net.layers{l}.pooled_h net.layers{l}.pooled_w];
+      block.spatial_scale = net.layers{l}.spatial_scale;
+
     case {'normalize', 'lrn'}
       block = LRN() ;
       block.param = net.layers{l}.param ;
@@ -140,6 +154,11 @@ for l = 1:numel(net.layers)
       block = Loss('loss', 'softmaxlog') ;
       % The loss has two inputs
       inputs{2} = getNewVarName(obj, 'label') ;
+
+    case {'smoothl1loss'}
+      block = SmoothL1Loss();
+      inputs{2} = getNewVarName(obj, 'bbox_target') ;
+      inputs{3} = getNewVarName(obj, 'bbox_loss_weight') ;
 
     case {'bnorm'}
       block = BatchNorm() ;
