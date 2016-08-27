@@ -58,17 +58,8 @@ net = vl_simplenn_tidy(net) ;
 obj.meta = net.meta ;
 
 for l = 1:numel(net.layers)
-  if isfield(net.layers{l}, 'inputs')
-    inputs = net.layers{l}.inputs;
-  else
-    inputs = {sprintf('x%d',l-1)} ;
-  end
-
-  if isfield(net.layers{l}, 'outputs')
-    outputs = net.layers{l}.outputs;
-  else
-    outputs = {sprintf('x%d',l)} ;
-  end
+  inputs = {sprintf('x%d',l-1)} ;
+  outputs = {sprintf('x%d',l)} ;
 
   params = struct(...
         'name', {}, ...
